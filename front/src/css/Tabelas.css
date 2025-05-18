@@ -1,0 +1,76 @@
+/* .componente-geral {
+  display: flex;
+  flex-direction: column;
+}
+.container-titulo {
+  border-radius: 8px 8px 0 0;
+  padding: 12px;
+  background-color: #9444fc;
+  width: fit-content;
+}
+h4 {
+  color: rgb(240, 240, 240);
+  font-weight: 300;
+  font-size: 24px;
+}
+table {
+  width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: white;
+  padding: 16px 32px;
+  border-radius: 0 8px 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #f0f0f0;
+}
+
+th,
+td {
+  color: rgb(63, 63, 63);
+  padding: 12px;
+  text-align: left;
+}
+th {
+  background-color: white;
+}
+tr {
+  background-color: var(--roxo-claro);
+}
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+.btn-editar {
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.btn-criar {
+  width: 100%;
+  background-color: var(--roxo);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.btn-excluir {
+  width: 100%;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.btns-conatiner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btns-conatiner button{
+  width: 92px;
+} */

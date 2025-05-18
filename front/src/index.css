@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Mukta+Vaani:wght@200;300;400;500;600;700;800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: rgb(218, 218, 218);
+  font-family: "Roboto", sans-serif;
+}
+:root {
+  --roxo: #9444fc;
+  --roxo-claro: hsl(266, 100%, 86%);
+  --cinza-claro: rgb(230, 230, 230);
+  --letras-claro: rgb(80, 80, 80);
+  --letras-escuro: rgb(37, 37, 37);
+  --vermelho: #f44336;
+  --verde: #4caf50;
+}

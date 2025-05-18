@@ -1,0 +1,45 @@
+#container-formulario-registrar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--roxo-claro);
+  border-radius: 16px;
+}
+
+#container-formulario-registrar form {
+  background-color: var(--cinza-claro);
+  width: 600px;
+  height: 200px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+#container-formulario-registrar .form-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 32px;
+  gap: 32px;
+}
+#container-formulario-registrar form input {
+  display: flex;
+  height: 32px;
+  padding: 4px;
+  border-radius: 4px;
+  color: var(--letras-escuro);
+  border: 1px solid var(--letras-claro);
+}
+#container-formulario-registrar label {
+  color: var(--letras-escuro);
+}
+#botao-registrar {
+  border-radius: 0;
+  border: 0;
+}
+.mensagem{
+    color: black;
+}

@@ -1,0 +1,28 @@
+.parte-baixa{
+    display: flex;
+}
+a{
+    text-decoration: none;
+}
+body{
+    width: 100%;
+    height: max-content;
+}
+.conteudo {
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    background-color: var(--cinza-claro);
+    padding: 32px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+.conteudo *{
+    color: var(--letras-escuro);
+}
+.btn{
+    background-color: white;
+    border: 1px solid var(--cinza-claro);
+    padding: 4px;
+}
