@@ -1,13 +1,12 @@
 package com.pi.controller;
 
 import com.pi.entity.Categoria;
-import com.pi.repository.CategoriaRepository;
+import com.pi.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
@@ -15,39 +14,35 @@ import java.util.Optional;
 public class CategoriaController {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoriaService categoriaService;
 
     @PostMapping
     public ResponseEntity<Categoria> criar(@RequestBody Categoria categoria) {
-        return ResponseEntity.ok(categoriaRepository.save(categoria));
+        return ResponseEntity.ok(categoriaService.criarCategoria(categoria));
     }
 
     @GetMapping
     public ResponseEntity<List<Categoria>> listar() {
-        return ResponseEntity.ok(categoriaRepository.findAll());
+        return ResponseEntity.ok(categoriaService.listarTodasCategorias());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Categoria> buscarPorId(@PathVariable Long id) {
-        Optional<Categoria> categoria = categoriaRepository.findById(id);
-        return categoria.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return categoriaService.buscarCategoriaPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> atualizar(@PathVariable Long id, @RequestBody Categoria novaCategoria) {
-        return categoriaRepository.findById(id)
-                .map(cat -> {
-                    cat.setNome(novaCategoria.getNome());
-                    cat.setDescricao(novaCategoria.getDescricao());
-                    cat.setIsAtivo(novaCategoria.getIsAtivo());
-                    return ResponseEntity.ok(categoriaRepository.save(cat));
-                }).orElse(ResponseEntity.notFound().build());
+        return categoriaService.atualizarCategoria(id, novaCategoria)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        if (categoriaRepository.existsById(id)) {
-            categoriaRepository.deleteById(id);
+        if (categoriaService.deletarCategoria(id)) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

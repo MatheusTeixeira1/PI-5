@@ -1,5 +1,6 @@
 import "../../css/FormCriar.css";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProdutoCriar() {
   const [formData, setFormData] = useState({
@@ -12,14 +13,34 @@ function ProdutoCriar() {
   });
 
   const [categoriasAtivas, setCategoriasAtivas] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategorias = async () => {
+      const token = localStorage.getItem("token");
+      
+      if (!token) {
+        navigate("/auth/login");
+        return;
+      }
+
       try {
-        const response = await fetch("http://localhost:8080/categorias");
+        const response = await fetch("http://localhost:8080/categorias", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 401) {
+          localStorage.removeItem("token");
+          navigate("/auth/login");
+          return;
+        }
+
         if (!response.ok) {
           throw new Error("Erro ao buscar categorias");
         }
+
         const data = await response.json();
         const ativas = data.filter((cat) => cat.isAtivo);
         setCategoriasAtivas(ativas);
@@ -29,7 +50,7 @@ function ProdutoCriar() {
     };
 
     fetchCategorias();
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,6 +62,13 @@ function ProdutoCriar() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Sessão expirada. Faça login novamente.");
+      navigate("/auth/login");
+      return;
+    }
 
     const produtoDTO = {
       nome: formData.nome,
@@ -56,16 +84,24 @@ function ProdutoCriar() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(produtoDTO),
       });
 
+      if (response.status === 401) {
+        localStorage.removeItem("token");
+        navigate("/auth/login");
+        return;
+      }
+
       if (!response.ok) {
-        throw new Error("Erro ao salvar produto");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao salvar produto");
       }
 
       alert("Produto salvo com sucesso!");
-      window.location.href = "/produtos";
+      navigate("/produtos");
     } catch (error) {
       alert("Erro: " + error.message);
     }

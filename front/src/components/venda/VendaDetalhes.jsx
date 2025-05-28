@@ -30,10 +30,26 @@ const useFetchData = (entidade) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/${entidade}`);
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("Token de autenticação não encontrado");
+        }
+
+        const response = await fetch(`http://localhost:8080/${entidade}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
         if (!response.ok) {
+          if (response.status === 401) {
+            localStorage.removeItem("token");
+            window.location.href = "/auth/login";
+            return;
+          }
           throw new Error(`Erro ao carregar ${entidade}`);
         }
+
         const jsonData = await response.json();
         setData(jsonData);
       } catch (err) {
@@ -102,12 +118,29 @@ function Tabela({ entidade }) {
     if (!confirmacao) return;
 
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Sessão expirada. Faça login novamente.");
+        window.location.href = "/auth/login";
+        return;
+      }
+
       const response = await fetch(`http://localhost:8080/${entidade}/${id}`, {
         method: "DELETE",
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
+
       if (!response.ok) {
+        if (response.status === 401) {
+          localStorage.removeItem("token");
+          window.location.href = "/auth/login";
+          return;
+        }
         throw new Error("Erro ao excluir o item");
       }
+
       setData((prevData) => prevData.filter((item) => item.id !== id));
     } catch (error) {
       alert(error.message);
@@ -115,7 +148,17 @@ function Tabela({ entidade }) {
   };
 
   if (loading) return <div>Carregando {entidade}...</div>;
-  if (error) return <div>Erro: {error}</div>;
+  if (error) {
+    if (error.includes("Token de autenticação")) {
+      return (
+        <div>
+          <p>{error}</p>
+          <a href="/auth/login">Ir para a página de login</a>
+        </div>
+      );
+    }
+    return <div>Erro: {error}</div>;
+  }
   if (!currentItems.length) return <div>Nenhum dado encontrado</div>;
 
   const sampleItem = currentItems[0];

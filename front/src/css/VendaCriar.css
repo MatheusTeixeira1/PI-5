@@ -1,15 +1,8 @@
-.container-titulo {
-  background-color: var(--roxo);
-  padding: 8px;
-  border-radius: 8px 8px 0 0;
-  width: fit-content;
-}
 .form {
-    border-radius: 0 8px 8px;
+  border-radius: 0 8px 8px;
 }
-.container-titulo h4{
-    color: var(--cinza-claro);
-}
+
+
 
 
 
@@ -32,7 +25,6 @@
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  margin-top: 16px;
 }
  tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;

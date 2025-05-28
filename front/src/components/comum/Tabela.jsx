@@ -137,11 +137,22 @@ function Tabela({ entidade }) {
       <table>
         <thead>
           <tr>
-            {columns.hasId && <th>ID</th>}
-            {columns.hasNome && <th>Nome</th>}
+            {columns.hasId && <th style={{ width: "64px" }}>ID</th>}
+            {columns.hasNome && (
+              <th
+                style={{
+                  width: "255px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Nome
+              </th>
+            )}
             {columns.hasQuantidadeEstoque && <th>Quantidade</th>}
             {columns.hasPreco && <th>Preço</th>}
-            {columns.hasIsAtivo && <th>Status</th>}
+            {/* {columns.hasIsAtivo && <th>Status</th>} */}
             {columns.hasDataHora && <th>Data</th>}
             {columns.hasValorTotal && <th>Valor Total</th>}
             <th className="btns-conatiner">
@@ -156,15 +167,20 @@ function Tabela({ entidade }) {
         <tbody>
           {currentItems.map((objeto) => (
             <tr key={objeto.id}>
-              {columns.hasId && <td>{objeto.id}</td>}
-              {columns.hasNome && <td>{objeto.nome}</td>}
+              {columns.hasId && <td style={{ width: "64px" }}>{objeto.id}</td>}
+              {columns.hasNome && <td style={{
+                  width: "255px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}>{objeto.nome}</td>}
               {columns.hasQuantidadeEstoque && (
                 <td>{objeto.quantidadeEstoque}</td>
               )}
               {columns.hasPreco && <td>{formatarMoeda(objeto.preco)}</td>}
-              {columns.hasIsAtivo && (
+              {/* {columns.hasIsAtivo && (
                 <td>{objeto.isAtivo ? "Ativo" : "Inativo"}</td>
-              )}
+              )} */}
               {columns.hasDataHora && <td>{formatarData(objeto.dataHora)}</td>}
               {columns.hasValorTotal && (
                 <td>{formatarMoeda(objeto.valorTotal)}</td>

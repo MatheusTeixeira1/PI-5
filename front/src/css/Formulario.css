@@ -1,4 +1,9 @@
 
+.container-geral-tabelas {
+  display: flex;
+  flex-direction: column;
+
+}
 .container-geral-tabelas .container-titulo {
   background-color: var(--roxo);
   padding: 8px;

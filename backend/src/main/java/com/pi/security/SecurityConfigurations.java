@@ -33,8 +33,9 @@ public class SecurityConfigurations {
 //						.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 //						.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 //						.requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIM")
-//						.requestMatchers(HttpMethod.POST, "/blueray").hasRole("ADMIN")
-//						.requestMatchers(HttpMethod.PUT, "/blueray/{id}").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.POST, "/venda").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT, "/produtos/{id}").hasRole("ADMIN")
 //						.requestMatchers(HttpMethod.DELETE, "/blueray/{id}").hasRole("ADMIN")]
 						.requestMatchers("/categorias/**").permitAll()
 //						.requestMatchers(HttpMethod.GET, "/usuario").hasRole("ADMIN")

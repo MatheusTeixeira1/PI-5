@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pi.repository.UsuarioRepository;
 
 @Service
-public class AuthorizationService implements UserDetailsService{
+public class AuthenticationService implements UserDetailsService{
 
 	@Autowired
 	UsuarioRepository repository;

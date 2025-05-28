@@ -1,0 +1,192 @@
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+}
+
+/* Color Variables */
+#root {
+  --cor-primaria: #8f5bb4;
+  --cor-secundaria: color-mix(in srgb, var(--cor-primaria) 80%, white);
+  --cor-terciaria: color-mix(in srgb, var(--cor-primaria) 60%, white);
+  --cor-quartenaria: color-mix(in srgb, var(--cor-primaria) 70%, black);
+  --texto-primaria-1: color-mix(in srgb, var(--cor-primaria) 95%, black);
+  --texto-primaria-2: color-mix(in srgb, var(--cor-primaria) 95%, white);
+  --texto-1: #0d0d0d;
+  --texto-2: #1e1e1e;
+  --texto-3: #333333;
+  --texto-4: #7d7d7d;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Button Styles */
+button {
+  padding: 8px;
+  border: none;
+  background-color: white;
+  border-radius: 8px;
+}
+
+/* Table Container */
+.tabela-container {
+  border-radius: 8px 8px 0 0;
+  display: block;
+  overflow-x: auto;
+  max-width: 80vw;
+}
+
+/* Scrollbar Styles */
+.tabela-container::-webkit-scrollbar {
+  height: 12px;
+  background-color: var(--cor-terciaria);
+}
+
+.tabela-container::-webkit-scrollbar-thumb {
+  background-color: var(--cor-primaria);
+  border-radius: 8px;
+  border: 2px solid var(--cor-terciaria);
+}
+
+.tabela-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--cor-quartenaria);
+}
+
+.tabela-container::-webkit-scrollbar-track {
+  border-radius: 0 0 8px 8px;
+  background-color: var(--cor-terciaria);
+}
+
+/* Table Styles */
+table {
+  text-align: left;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 4px solid var(--cor-primaria);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table tr {
+  height: 40px;
+}
+
+table td,
+table th {
+  color: var(--texto-1);
+  padding: 8px;
+  min-width: 128px;
+  max-width: 256px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Table Header */
+table thead tr {
+  background-color: var(--cor-quartenaria);
+}
+
+table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* Table Body */
+table tbody tr:nth-child(odd) {
+  background-color: var(--cor-secundaria);
+}
+
+table tbody tr:nth-child(even) {
+  background-color: var(--cor-terciaria);
+}
+
+/* Button Containers */
+/* table .btn-container-horizontal {
+  height: 40px;
+  max-width: 248px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table button {
+  height: 100%;
+  width: 80px;
+  margin: auto;
+  border-radius: 0;
+} */
+table .btn-container-horizontal {
+  height: 40px;
+  max-width: 248px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table button {
+  height: 100%;
+  width: 80px;
+  border-radius: 0;
+}
+/* Specific Button Styles */
+table .btn-criar {
+  background-color: #4caf50;
+  transition: background-color 0.3s ease;
+}
+
+table .btn-criar:hover {
+  background-color: #45a049;
+  cursor: pointer;
+}
+
+table .btn-excluir {
+  background-color: #f44336;
+  transition: background-color 0.3s ease;
+}
+
+table .btn-excluir:hover {
+  background-color: #d32f2f; 
+  cursor: pointer;
+}
+
+table .btn-editar {
+  background-color: #ffc107;
+  transition: background-color 0.3s ease;
+}
+
+table .btn-editar:hover {
+  background-color: #f0a800; 
+  cursor: pointer;
+}
+
+table .btn-ver {
+  background-color: #2196f3;
+  transition: background-color 0.3s ease;
+}
+
+table .btn-ver:hover {
+  background-color: #1976d2;
+  cursor: pointer;
+}
+
+/* Media Queries */
+/* @media (min-width: 900px) {
+  .tabela {
+    border-bottom: 0 solid var(--cor-primaria);
+  }
+} */

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function formatarMoeda(valor) {
   return valor?.toLocaleString("pt-BR", {
@@ -12,6 +12,7 @@ function formatarMoeda(valor) {
 
 function VendaVer() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [itens, setItens] = useState([]);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(null);
@@ -19,23 +20,46 @@ function VendaVer() {
   useEffect(() => {
     const buscarItens = async () => {
       try {
+        const token = localStorage.getItem("token");
+        
+        if (!token) {
+          throw new Error("Autenticação necessária");
+        }
+
         const resposta = await fetch(
-          `http://localhost:8080/venda/${id}/itens`
+          `http://localhost:8080/venda/${id}/itens`,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }
         );
+
+        if (resposta.status === 401) {
+          localStorage.removeItem("token");
+          navigate("/auth/login");
+          return;
+        }
+
         if (!resposta.ok) {
           throw new Error("Erro ao buscar itens da venda");
         }
+
         const dados = await resposta.json();
         setItens(dados);
       } catch (err) {
         setErro(err.message);
+        if (err.message === "Autenticação necessária") {
+          navigate("/auth/login");
+        }
       } finally {
         setLoading(false);
       }
     };
 
     buscarItens();
-  }, [id]);
+  }, [id, navigate]);
 
   if (loading) return <div>Carregando itens da venda...</div>;
   if (erro) return <div>Erro: {erro}</div>;

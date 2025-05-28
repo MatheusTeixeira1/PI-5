@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pi.DTOs.AuthenticationDTO;
 import com.pi.DTOs.LoginResponseDTO;
 import com.pi.DTOs.RegisterDTO;
+import com.pi.entity.UserRole;
 import com.pi.entity.Usuario;
 import com.pi.repository.UsuarioRepository;
 import com.pi.security.TokenService;
-import com.pi.service.AuthorizationService;
+import com.pi.service.AuthenticationService;
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "http://127.0.0.1:5500")
@@ -25,7 +26,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/auth")
 public class AuthenticationController {
 
-    private final AuthorizationService authorizationService;
+    private final AuthenticationService authorizationService;
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
@@ -35,7 +36,7 @@ public class AuthenticationController {
 	@Autowired
 	private TokenService tokenService;
 
-    AuthenticationController(AuthorizationService authorizationService) {
+    AuthenticationController(AuthenticationService authorizationService) {
         this.authorizationService = authorizationService;
     }
 	
@@ -54,7 +55,8 @@ public class AuthenticationController {
 	    System.out.println("-------------------------------------");
 	    if (this.userRepository.findByEmail(registerData.username()) == null) {
 	        String encryptedPassword = new BCryptPasswordEncoder().encode(registerData.password());
-	        Usuario newUser = new Usuario(registerData.nome(), registerData.username(), encryptedPassword, registerData.role());
+	        // Forçando o role para USER, ignorando o valor que veio no registerData
+	        Usuario newUser = new Usuario(registerData.nome(), registerData.username(), encryptedPassword, UserRole.USER);
 	        this.userRepository.save(newUser);
 
 	        ResponseEntity<?> logar = loginInterno(new AuthenticationDTO(registerData.username(), registerData.password()));
@@ -63,7 +65,22 @@ public class AuthenticationController {
 	        return ResponseEntity.badRequest().build();
 	    }
 	}
+	@PostMapping(value = "/registerAdm")
+	public ResponseEntity<?> registerAdm(@RequestBody RegisterDTO registerData) {
+	    System.out.println(registerData.username());
 
+	    System.out.println("-------------------------------------");
+	    if (this.userRepository.findByEmail(registerData.username()) == null) {
+	        String encryptedPassword = new BCryptPasswordEncoder().encode(registerData.password());
+	        Usuario newUser = new Usuario(registerData.nome(), registerData.username(), encryptedPassword, UserRole.ADMIN);
+	        this.userRepository.save(newUser);
+
+	        ResponseEntity<?> logar = loginInterno(new AuthenticationDTO(registerData.username(), registerData.password()));
+	        return logar;
+	    } else {
+	        return ResponseEntity.badRequest().build();
+	    }
+	}
 	
 	public ResponseEntity<?> loginInterno(AuthenticationDTO data) {
 		var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());

@@ -1,9 +1,10 @@
 import "../../css/FormCriar.css";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function ProdutoEditar() {
-  const { id } = useParams(); // id do produto a ser editado
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nome: "",
     descricao: "",
@@ -14,12 +15,31 @@ function ProdutoEditar() {
   });
 
   const [categoriasAtivas, setCategoriasAtivas] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    
+    if (!token) {
+      navigate("/auth/login");
+      return;
+    }
+
     // Carregar categorias ativas
     const fetchCategorias = async () => {
       try {
-        const response = await fetch("http://localhost:8080/categorias");
+        const response = await fetch("http://localhost:8080/categorias", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 401) {
+          localStorage.removeItem("token");
+          navigate("/auth/login");
+          return;
+        }
+
         const data = await response.json();
         const ativas = data.filter((cat) => cat.isAtivo);
         setCategoriasAtivas(ativas);
@@ -31,8 +51,20 @@ function ProdutoEditar() {
     // Carregar dados do produto
     const fetchProduto = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/produtos/${id}`);
+        const response = await fetch(`http://localhost:8080/produtos/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 401) {
+          localStorage.removeItem("token");
+          navigate("/auth/login");
+          return;
+        }
+
         if (!response.ok) throw new Error("Produto não encontrado");
+        
         const produto = await response.json();
 
         setFormData({
@@ -45,12 +77,15 @@ function ProdutoEditar() {
         });
       } catch (error) {
         alert("Erro ao carregar produto: " + error.message);
+        navigate("/produtos");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchCategorias();
     fetchProduto();
-  }, [id]);
+  }, [id, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,6 +97,13 @@ function ProdutoEditar() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Sessão expirada. Faça login novamente.");
+      navigate("/auth/login");
+      return;
+    }
 
     const produtoDTO = {
       id: parseInt(id),
@@ -78,20 +120,30 @@ function ProdutoEditar() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(produtoDTO),
       });
 
+      if (response.status === 401) {
+        localStorage.removeItem("token");
+        navigate("/auth/login");
+        return;
+      }
+
       if (!response.ok) {
-        throw new Error("Erro ao atualizar produto");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao atualizar produto");
       }
 
       alert("Produto atualizado com sucesso!");
-      window.location.href = "/produtos";
+      navigate("/produtos");
     } catch (error) {
       alert("Erro: " + error.message);
     }
   };
+
+  if (loading) return <div>Carregando...</div>;
 
   return (
     <div className="componente-criar">

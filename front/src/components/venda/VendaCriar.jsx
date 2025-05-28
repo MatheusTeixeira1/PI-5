@@ -8,10 +8,27 @@ function VendaCriar() {
   const [quantidade, setQuantidade] = useState(1);
   const [itensVenda, setItensVenda] = useState([]);
 
+  // Obter o token do localStorage
+  const token = localStorage.getItem("token");
+
+  // Configurar o axios para incluir o token em todas as requisições
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  }, [token]);
+
   useEffect(() => {
     axios.get("http://localhost:8080/produtos")
       .then((res) => setProdutos(res.data))
-      .catch((err) => console.error("Erro ao buscar produtos", err));
+      .catch((err) => {
+        console.error("Erro ao buscar produtos", err);
+        if (err.response?.status === 401) {
+          // Token inválido ou expirado
+          localStorage.removeItem("token");
+          window.location.href = "/auth/login";
+        }
+      });
   }, []);
 
   const handleAddItem = () => {
@@ -47,6 +64,12 @@ function VendaCriar() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!token) {
+      alert("Sessão expirada. Faça login novamente.");
+      window.location.href = "/auth/login";
+      return;
+    }
+
     const payload = {
       itens: itensVenda.map(item => ({
         produtoId: item.produtoId,
@@ -59,7 +82,16 @@ function VendaCriar() {
         alert("Venda criada com sucesso!");
         setItensVenda([]);
       })
-      .catch(() => alert("Erro ao criar venda."));
+      .catch((err) => {
+        if (err.response?.status === 401) {
+          alert("Sessão expirada. Faça login novamente.");
+          localStorage.removeItem("token");
+          window.location.href = "/auth/login";
+        } else {
+          alert("Erro ao criar venda.");
+        }
+        console.error("Erro ao criar venda", err);
+      });
   };
 
   return (
@@ -95,7 +127,7 @@ function VendaCriar() {
         </div>
 
         <div className="form-buttons">
-          <button type="button" className="btn-salvar" onClick={handleAddItem} >
+          <button type="button" className="btn-salvar" onClick={handleAddItem}>
             Adicionar
           </button>
         </div>
