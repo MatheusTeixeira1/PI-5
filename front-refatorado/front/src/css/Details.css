@@ -1,0 +1,188 @@
+/* Reset para garantir que não haja margens indesejadas */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Garante que o body nunca tenha rolagem horizontal */
+}
+
+/* Wrapper principal */
+.details-wrapper {
+  width: 100%;
+  max-width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Container dos detalhes */
+.details-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Cabeçalho */
+.details-header {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Ajuste para telas maiores */
+@media (min-width: 600px) {
+  .details-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Ações */
+.details-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Botões */
+.btn-editar, .btn-excluir {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.btn-editar {
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-editar:hover {
+  background-color: #45a049;
+}
+
+.btn-excluir {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-excluir:hover {
+  background-color: #d32f2f;
+}
+
+/* Conteúdo */
+.details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+/* Linhas de detalhes */
+.details-row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  border-bottom: 1px solid #f5f5f5;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Label */
+.details-label {
+  font-weight: bold;
+  color: #555;
+  width: 100%;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+}
+
+/* Valor */
+.details-value {
+  width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+/* Texto longo */
+.details-text {
+  white-space: pre-line;
+}
+
+/* Status */
+.status-ativo {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.status-inativo {
+  color: #f44336;
+  font-weight: bold;
+}
+
+/* Modal */
+.confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: calc(100% - 40px);
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-confirm, .btn-cancel {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-confirm {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-confirm:hover {
+  background-color: #d32f2f;
+}
+
+.btn-cancel {
+  background-color: #757575;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #616161;
+}

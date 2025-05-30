@@ -1,0 +1,81 @@
+aside{
+    width: 128px;
+    height: 100%;
+    background-color: #9444fc;
+    padding-top: 32px;
+}
+aside a {
+    height: 96px;
+    display: block;
+    
+    text-decoration: none;
+    color: white;
+}
+
+aside ul{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+aside ul li{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+img{
+    width: 42px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Estilo base para os links */
+
+
+aside a {
+  text-decoration: none;
+  color: inherit;
+  
+}
+
+aside li {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 8px;
+  margin: 4px 0;
+}
+
+/* Estilo para o link ativo */
+aside .active-link li,
+aside li.active {
+  background-color: var(--cor-quartenaria); /* Cor de fundo quando ativo */
+  color: white;
+}
+
+/* Estilo hover para os links */
+aside li:hover {
+  background-color: var(--cor-quartenaria);
+}
+
+/* Estilo para as imagens */
+aside li img {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%); /* Opcional: ajusta cor dos ícones */
+}
+
+aside .active-link li img,
+aside li.active img {
+  filter: invert(100%) sepia(100%) saturate(100%) hue-rotate(180deg); /* Efeito diferente para ícone ativo */
+}
