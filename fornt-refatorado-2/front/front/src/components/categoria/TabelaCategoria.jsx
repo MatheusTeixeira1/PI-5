@@ -5,6 +5,8 @@ import "../../styles/tabela.css";
 const TabelaCategorias = () => {
   const [categorias, setCategorias] = useState([]);
   const [paginaAtual, setPaginaAtual] = useState(1);
+  const [mensagem, setMensagem] = useState(""); // mensagem de sucesso
+  const [erro, setErro] = useState(""); // mensagem de erro
   const itensPorPagina = 5;
   const navigate = useNavigate();
 
@@ -14,6 +16,8 @@ const TabelaCategorias = () => {
 
   const fetchCategorias = async () => {
     const token = localStorage.getItem("authToken");
+    setErro("");
+    setMensagem("");
 
     try {
       const response = await fetch("http://localhost:8080/categorias", {
@@ -23,13 +27,21 @@ const TabelaCategorias = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao buscar categorias");
+        if (response.status === 401) {
+          setErro("Sessão expirada. Faça login novamente.");
+        } else if (response.status === 403) {
+          setErro("Você não tem permissão para visualizar as categorias.");
+        } else {
+          setErro("Erro ao buscar categorias.");
+        }
+        return;
       }
 
       const data = await response.json();
       setCategorias(data);
     } catch (error) {
       console.error("Erro:", error);
+      setErro("Erro de conexão. Verifique sua internet ou tente novamente.");
     }
   };
 
@@ -46,6 +58,8 @@ const TabelaCategorias = () => {
     if (!confirmacao) return;
 
     const token = localStorage.getItem("authToken");
+    setErro("");
+    setMensagem("");
 
     try {
       const response = await fetch(`http://localhost:8080/categorias/${id}`, {
@@ -55,13 +69,25 @@ const TabelaCategorias = () => {
         },
       });
 
-      if (!response.ok) throw new Error("Erro ao excluir categoria");
+      if (!response.ok) {
+        if (response.status === 401) {
+          setErro("Sessão expirada. Faça login novamente.");
+        } else if (response.status === 403) {
+          setErro("Você não tem permissão para excluir esta categoria.");
+        } else if (response.status >= 500) {
+          setErro("Erro no servidor. Tente novamente mais tarde.");
+        } else {
+          const errorData = await response.json();
+          setErro(errorData.message || "Erro ao excluir categoria.");
+        }
+        return;
+      }
 
+      setMensagem("Categoria excluída com sucesso!");
       fetchCategorias();
-      alert("Categoria excluída com sucesso!");
     } catch (error) {
       console.error("Erro:", error);
-      alert("Falha ao excluir categoria");
+      setErro("Erro de conexão. Verifique sua internet ou tente novamente.");
     }
   };
 
@@ -81,6 +107,9 @@ const TabelaCategorias = () => {
         <h2>Lista de Categorias</h2>
         <button className="btn-acao" onClick={handleCriarCategoria}>Criar Categoria</button>
       </div>
+
+      {erro && <div className="alert alert-error">{erro}</div>}
+      {mensagem && <div className="alert alert-success">{mensagem}</div>}
 
       <table id="tabela">
         <thead>

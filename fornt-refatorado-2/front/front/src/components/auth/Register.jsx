@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import "../../css/FormularioRegistrar.css"; // Certifique-se de que o arquivo existe
+// import "../../styles/registrar.css";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -56,64 +56,66 @@ function Register() {
   };
 
   return (
-    <div id="container-formulario-registrar">
-      {mensagem && <div className="mensagem">{mensagem}</div>}
-      <div className="container-titulo">
-        <h2>Registro de Usuário</h2>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <div className="form-group-1">
-            <label>
-              Nome:
-              <input
-                type="text"
-                name="nome"
-                value={formData.nome}
-                onChange={handleChange}
-                required
-              />
-            </label>
-
-            <label>
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </label>
-          </div>
-          <div className="form-group-1">
-            <label>
-              Telefone:
-              <input
-                type="text"
-                name="numeroTelefone"
-                value={formData.numeroTelefone}
-                onChange={handleChange}
-              />
-            </label>
-
-            <label>
-              Senha:
-              <input
-                type="password"
-                name="senha"
-                value={formData.senha}
-                onChange={handleChange}
-                required
-              />
-            </label>
-          </div>
+    <div className="auth-container">
+      <div className="auth-card">
+        {mensagem && <div className="mensagem">{mensagem}</div>}
+        <div className="container-titulo">
+          <h2>Registro de Usuário</h2>
         </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <div className="form-group-1">
+              <label>
+                Nome:
+                <input
+                  type="text"
+                  name="nome"
+                  value={formData.nome}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
 
-        <button className="btn btn-criar" id="botao-registrar" type="submit">
-          Registrar
-        </button>
-      </form>
+              <label>
+                Email:
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+            </div>
+            <div className="form-group-1">
+              <label>
+                Telefone:
+                <input
+                  type="text"
+                  name="numeroTelefone"
+                  value={formData.numeroTelefone}
+                  onChange={handleChange}
+                />
+              </label>
+
+              <label>
+                Senha:
+                <input
+                  type="password"
+                  name="senha"
+                  value={formData.senha}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+            </div>
+          </div>
+
+          <button className="auth-button" id="botao-registrar" type="submit">
+            Registrar
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

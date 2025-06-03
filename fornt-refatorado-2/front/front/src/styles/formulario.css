@@ -1,5 +1,5 @@
 #formulario {
-  background-color: var(--cor-clara);
+  background-color: rgb(235, 235, 235);
   padding: 32px;
   border-radius: 16px;
   width: 600px;
@@ -31,7 +31,7 @@
   padding: 10px;
   border-radius: 8px;
   border: 1px solid var(--cor-escura);
-  background-color: var(--cor-mais-clara);
+  background-color: white;
   color: var(--preto);
 }
 

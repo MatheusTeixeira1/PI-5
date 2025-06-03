@@ -5,6 +5,9 @@ import "../../styles/tabela.css";
 const TabelaProdutos = () => {
   const [produtos, setProdutos] = useState([]);
   const [paginaAtual, setPaginaAtual] = useState(1);
+  const [mensagem, setMensagem] = useState("");
+  const [erro, setErro] = useState("");
+
   const itensPorPagina = 5;
   const navigate = useNavigate();
 
@@ -13,12 +16,15 @@ const TabelaProdutos = () => {
   }, []);
 
   const fetchProdutos = async () => {
+    setErro("");
+    setMensagem("");
+
     const token = localStorage.getItem("authToken");
 
     try {
       const response = await fetch("http://localhost:8080/produtos", {
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -30,6 +36,7 @@ const TabelaProdutos = () => {
       setProdutos(data);
     } catch (error) {
       console.error("Erro:", error);
+      setErro("Erro ao carregar produtos. Tente novamente.");
     }
   };
 
@@ -42,8 +49,8 @@ const TabelaProdutos = () => {
   };
 
   const handleExcluir = async (id) => {
-    const confirmacao = window.confirm("Tem certeza que deseja excluir este produto?");
-    if (!confirmacao) return;
+    const confirmar = window.confirm("Tem certeza que deseja excluir este produto?");
+    if (!confirmar) return;
 
     const token = localStorage.getItem("authToken");
 
@@ -51,17 +58,26 @@ const TabelaProdutos = () => {
       const response = await fetch(`http://localhost:8080/produtos/${id}`, {
         method: "DELETE",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
-      if (!response.ok) throw new Error("Erro ao excluir produto");
+      if (!response.ok) {
+        if (response.status === 403) {
+          setErro("Você não tem permissão para excluir este produto.");
+        } else if (response.status === 404) {
+          setErro("Produto não encontrado.");
+        } else {
+          throw new Error("Erro ao excluir produto");
+        }
+        return;
+      }
 
+      setMensagem("Produto excluído com sucesso!");
       fetchProdutos();
-      alert("Produto excluído com sucesso!");
     } catch (error) {
       console.error("Erro:", error);
-      alert("Falha ao excluir produto");
+      setErro("Falha ao excluir produto. Verifique sua conexão.");
     }
   };
 
@@ -79,8 +95,13 @@ const TabelaProdutos = () => {
     <div className="tabela-container">
       <div className="topo-tabela">
         <h2>Lista de Produtos</h2>
-        <button className="btn-acao" onClick={handleCriarProduto}>Criar Produto</button>
+        <button className="btn-acao" onClick={handleCriarProduto}>
+          Criar Produto
+        </button>
       </div>
+
+      {erro && <div className="alert alert-error">{erro}</div>}
+      {mensagem && <div className="alert alert-success">{mensagem}</div>}
 
       <table id="tabela">
         <thead>
@@ -98,33 +119,36 @@ const TabelaProdutos = () => {
               <td>R$ {produto.preco.toFixed(2)}</td>
               <td>{produto.quantidadeEstoque}</td>
               <td>
-                <button className="btn-acao btn-editar" onClick={() => handleEditar(produto.id)}>Editar</button>
-                <button className="btn-acao btn-ver" onClick={() => handleVerMais(produto.id)}>Ver Mais</button>
-                <button className="btn-acao btn-excluir" onClick={() => handleExcluir(produto.id)}>Excluir</button>
+                <button className="btn-acao btn-editar" onClick={() => handleEditar(produto.id)}>
+                  Editar
+                </button>
+                <button className="btn-acao btn-ver" onClick={() => handleVerMais(produto.id)}>
+                  Ver Mais
+                </button>
+                <button className="btn-acao btn-excluir" onClick={() => handleExcluir(produto.id)}>
+                  Excluir
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Paginação */}
-      <div className="paginacao">
-        <button
-          onClick={() => setPaginaAtual(paginaAtual - 1)}
-          disabled={paginaAtual === 1}
-        >
-          Anterior
-        </button>
+      {totalPaginas > 1 && (
+        <div className="paginacao">
+          <button onClick={() => setPaginaAtual(paginaAtual - 1)} disabled={paginaAtual === 1}>
+            Anterior
+          </button>
 
-        <span>Página {paginaAtual} de {totalPaginas}</span>
+          <span>
+            Página {paginaAtual} de {totalPaginas}
+          </span>
 
-        <button
-          onClick={() => setPaginaAtual(paginaAtual + 1)}
-          disabled={paginaAtual === totalPaginas}
-        >
-          Próxima
-        </button>
-      </div>
+          <button onClick={() => setPaginaAtual(paginaAtual + 1)} disabled={paginaAtual === totalPaginas}>
+            Próxima
+          </button>
+        </div>
+      )}
     </div>
   );
 };

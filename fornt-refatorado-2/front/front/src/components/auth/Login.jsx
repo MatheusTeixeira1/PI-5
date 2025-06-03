@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import "../../css/login.css";
+import "../../styles/login.css";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -55,12 +55,12 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
+    <div className="auth-container">
+      <div className="auth-card">
         <h2>Login</h2>
         
         {mensagem && (
-          <div className={`alert ${mensagem.includes("Erro") ? "alert-error" : "alert-success"}`}>
+          <div className={`alert alert-error`}>
             {mensagem}
           </div>
         )}
@@ -94,7 +94,7 @@ function Login() {
 
           <button 
             type="submit" 
-            className="login-button"
+            className="auth-button"
             disabled={loading}
           >
             {loading ? "Carregando..." : "Entrar"}

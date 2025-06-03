@@ -1,5 +1,7 @@
 .detalhes {
-  background-color: var(--cor-clara);
+  /* background-color: var(--cor-clara); */
+  
+  background-color: rgb(235, 235, 235);
   border-radius: 12px;
   padding: 2rem;
   width: 100%;
