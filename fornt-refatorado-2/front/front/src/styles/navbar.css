@@ -1,0 +1,43 @@
+#navegacao {
+  background-color: var(--cor-escura);
+  height: 100%;
+}
+
+#navegacao ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+#navegacao a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--cor-mais-clara);
+  padding: 8px 24px;
+  border-radius: 16px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#navegacao a:hover {
+  background-color: var(--cor-mais-escura);
+}
+
+#navegacao img {
+  width: 80px;
+}
+
+#navegacao .ativo {
+  color: var(--preto);
+  background-color: var(--cor-mais-escura);
+  border-radius: 0;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#navegacao .desativo {
+  background-color: var(--cor-escura);
+  transition: background-color 0.3s ease-in-out;
+}

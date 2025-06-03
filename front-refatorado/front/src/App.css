@@ -14,7 +14,7 @@ body {
   width: 100%;
   height: 100vh;
 
-  --cor-primaria: #8f5bb4;
+  --cor-primaria: #8b52b4;
   --cor-secundaria: color-mix(in srgb, var(--cor-primaria) 80%, white);
   --cor-terciaria: color-mix(in srgb, var(--cor-primaria) 60%, white);
   --cor-quartenaria: color-mix(in srgb, var(--cor-primaria) 70%, black);

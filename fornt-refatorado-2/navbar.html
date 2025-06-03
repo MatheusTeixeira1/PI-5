@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+      --cor-base: hsl(270, 60%, 85%);
+      --cor-mais-clara: hsl(270, 60%, 95%);
+      --cor-clara: hsl(270, 60%, 90%);
+      --cor-escura: hsl(270, 60%, 70%);
+      --cor-mais-escura: hsl(270, 60%, 50%);
+      --cor-secundaria: hsl(300, 60%, 85%);
+      --preto: rgb(41, 41, 41);
+      --branco: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--cor-mais-clara);
+    }
+        #navegacao {
+      background-color: var(--cor-escura);
+      padding: 24px 0;
+      flex: 1;
+      width: fit-content;
+    }
+
+    #navegacao ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    #navegacao a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--cor-mais-clara);
+      padding: 8px 24px;
+      border-radius: 16px;
+      transition: background-color .3s ease-in-out;
+    }
+    #navegacao a:hover{
+        background-color: var(--cor-mais-escura);
+    }
+    #navegacao img {
+      width: 80px;
+    }
+    #navegacao .ativo {
+        color: var(--preto);
+        background-color: var(--cor-mais-escura);
+        border-radius: 0;
+        transition: background-color .3s ease-in-out;
+    }
+    #navegacao .desativo {
+        background-color: var(--cor-escura);
+        transition: background-color .3s ease-in-out;
+    }
+    </style>
+</head>
+<body>
+    <nav id="navegacao">
+    <ul>
+      <li>
+        <a href="">
+          <img src="assets/categorias.svg" alt="Categorias" />
+          <span>CATEGORIAS</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <img src="assets/produtos.svg" alt="Produtos" />
+          <span>PRODUTOS</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <img src="assets/carrinho.svg" alt="Carrinho" />
+          <span>CARRINHO</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <img src="assets/vendas.svg" alt="Vendas" />
+          <span>VENDAS</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <script>
+  const links = document.querySelectorAll('#navegacao li');
+
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      // Evita navegação instantânea
+      e.preventDefault();
+
+      // Remove a classe ativa de todos
+      links.forEach(l => l.classList.remove('ativo'));
+      links.forEach(l => l.classList.add('desativo'));
+
+      // Adiciona ao clicado
+      link.classList.remove('desativo');
+      link.classList.add('ativo');
+    });
+  });
+</script>
+</body>
+</html>

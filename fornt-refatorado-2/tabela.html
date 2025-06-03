@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    :root {
+      --cor-base: hsl(270, 60%, 85%);
+      --cor-mais-clara: hsl(270, 60%, 95%);
+      --cor-clara: hsl(270, 60%, 90%);
+      --cor-escura: hsl(270, 60%, 70%);
+      --cor-mais-escura: hsl(270, 60%, 50%);
+      --cor-secundaria: hsl(300, 60%, 85%);
+      --cor-destacada: hsl(240, 60%, 85%);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--cor-mais-clara);
+      color: var(--preto);
+      padding: 2rem;
+    }
+
+    #tabela {
+      border-collapse: collapse;
+      background-color: var(--cor-base);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #tabela th, #tabela td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--cor-clara);
+    }
+
+    #tabela th {
+      background-color: var(--cor-clara);
+      color: var(--cor-mais-escura);
+      text-align: center;
+    }
+
+    #tabela tr:hover {
+      background-color: var(--cor-clara);
+    }
+    #tabela tbody tr td:last-child{
+      
+      height: 100%;
+      display: flex;
+      gap: 12px;
+    }
+    .btn-acao {
+      color: var(--preto);
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .btn-editar{
+      background-color: #FFD166;
+    }
+    .btn-ver{
+      background-color: #6E9EC7;
+    }
+    .btn-excluir{
+      background-color: #FF7D8A;
+    }
+    .btn-acao:hover {
+      background-color: var(--cor-escura);
+    }
+  </style>
+</head>
+<body>
+    <table id="tabela">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Maria Souza</td>
+        <td>maria@email.com</td>
+        <td><button class="btn-acao btn-editar">Editar</button><button class="btn-acao btn-ver">Ver Mais</button><button class="btn-acao btn-excluir">Excluir</button></td>
+      </tr>
+      
+    </tbody>
+  </table>
+</body>
+</html>

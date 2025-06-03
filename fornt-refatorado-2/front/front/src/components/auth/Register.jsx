@@ -29,7 +29,7 @@ function Register() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/auth/registerAdm", {
+      const response = await fetch("http://localhost:8080/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function Register() {
 
       if (resultado && resultado.token) {
         localStorage.setItem("token", resultado.token);
-        navigate("/produtos");
+        navigate("/login");
       } else {
         throw new Error("Token de autenticação não recebido.");
       }

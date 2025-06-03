@@ -1,0 +1,52 @@
+#formulario {
+  background-color: var(--cor-clara);
+  padding: 32px;
+  border-radius: 16px;
+  width: 600px;
+  margin: 24px auto;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+#formulario h2 {
+  text-align: center;
+  color: var(--preto);
+  margin-bottom: 24px;
+}
+
+#form .campo {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+#form label {
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: var(--preto);
+}
+
+#form input,
+#form select,
+#form textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--cor-escura);
+  background-color: var(--cor-mais-clara);
+  color: var(--preto);
+}
+
+#form button {
+  background-color: var(--cor-mais-escura);
+  color: var(--cor-mais-clara);
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+#form button:hover {
+  background-color: var(--cor-escura);
+}

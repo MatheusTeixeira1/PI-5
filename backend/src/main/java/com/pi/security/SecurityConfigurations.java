@@ -34,41 +34,41 @@ public class SecurityConfigurations {
 						.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 						.requestMatchers(HttpMethod.GET, "/auth/registerAdm").hasRole("ADMIN")
-						
+//						
 						.requestMatchers(HttpMethod.POST, "/categorias").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/categorias").hasAnyRole("ADMIN", "USER")
 						.requestMatchers(HttpMethod.GET, "/categorias/{id}").hasAnyRole("ADMIN", "USER")
 						.requestMatchers(HttpMethod.PUT, "/categorias/{id}").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.DELETE, "/categorias/{id}").hasRole("ADMIN")
-						
+//						
 						.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN")
-//						.requestMatchers(HttpMethod.GET, "/produtos").hasAnyRole("ADMIN", "USER")
-//						.requestMatchers(HttpMethod.GET, "/produtos/{id}").hasAnyRole("ADMIN", "USER")
-
-						.requestMatchers(HttpMethod.GET, "/produtos").permitAll()
-						.requestMatchers(HttpMethod.GET, "/produtos/{id}").permitAll()
+						.requestMatchers(HttpMethod.GET, "/produtos").hasAnyRole("ADMIN", "USER")
+						.requestMatchers(HttpMethod.GET, "/produtos/{id}").hasAnyRole("ADMIN", "USER")
 						.requestMatchers(HttpMethod.PUT, "/produtos/{id}").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.DELETE, "/produtos/{id}").hasRole("ADMIN")
-						
-						
+
+//						.requestMatchers(HttpMethod.GET, "/produtos").permitAll()
+//						.requestMatchers(HttpMethod.GET, "/produtos/{id}").permitAll()
+//						
+//						
 						.requestMatchers(HttpMethod.POST, "/venda").hasAnyRole("ADMIN", "USER")
 						.requestMatchers(HttpMethod.GET, "/venda").hasAnyRole("ADMIN", "USER")
 						.requestMatchers(HttpMethod.GET, "/venda/{id}").hasAnyRole("ADMIN", "USER")
 						.requestMatchers(HttpMethod.PUT, "/venda/{id}").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/{id}/itens").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.DELETE, "/venda/{id}").hasRole("ADMIN")
-						
+//						
 						.requestMatchers("/usuario/**").hasRole("ADMIN")
-						
-						.requestMatchers(HttpMethod.GET, "/produtos").hasAnyRole("ADMIN", "USER")
-						.requestMatchers(HttpMethod.GET, "/produtos/{id}").hasAnyRole("ADMIN", "USER")
-						.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN")
-						.requestMatchers(HttpMethod.PUT, "/produtos/{id}").hasRole("ADMIN")
-						.requestMatchers(HttpMethod.DELETE, "/produtos/{id}").hasRole("ADMIN")
+//						
+//						.requestMatchers(HttpMethod.GET, "/produtos").hasAnyRole("ADMIN", "USER")
+//						.requestMatchers(HttpMethod.GET, "/produtos/{id}").hasAnyRole("ADMIN", "USER")
+//						.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN")
+//						.requestMatchers(HttpMethod.PUT, "/produtos/{id}").hasRole("ADMIN")
+//						.requestMatchers(HttpMethod.DELETE, "/produtos/{id}").hasRole("ADMIN")
 						
 //						.requestMatchers(HttpMethod.GET, "/produtos").authenticated()
-						.anyRequest().permitAll()
 //						.anyRequest().hasRole("ADMIN")
+						.anyRequest().permitAll()
 						
 				)
 				.addFilterBefore(securityFillter, UsernamePasswordAuthenticationFilter.class)

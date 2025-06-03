@@ -26,37 +26,79 @@ public class VendaService {
 	@Autowired
 	private VendaRepository vendaRepository;
 
+//	@Transactional
+//	public Venda criarVenda(VendaDTO dto) {
+//		Venda venda = new Venda();
+//		venda.setDataHora(LocalDateTime.now());
+//
+//		List<ItemVenda> itens = new ArrayList<>();
+//		double valorTotal = 0.0;
+//
+//		for (ItemVendaDTO itemDTO : dto.getItens()) {
+//			Produto produto = produtoRepository.findById(itemDTO.getProdutoId())
+//					.orElseThrow(() -> new RuntimeException("Produto não encontrado: ID " + itemDTO.getProdutoId()));
+//
+//			double precoUnitario = produto.getPreco();
+//			int qtd = itemDTO.getQuantidade();
+//			double subtotal = precoUnitario * qtd;
+//
+//			ItemVenda item = new ItemVenda();
+//			item.setProduto(produto);
+//			item.setQuantidade(qtd);
+//			item.setPrecoUnitario(precoUnitario);
+//			item.setSubtotal(subtotal);
+//			item.setVenda(venda);
+//
+//			itens.add(item);
+//			valorTotal += subtotal;
+//		}
+//
+//		venda.setItens(itens);
+//		venda.setValorTotal(valorTotal);
+//
+//		return vendaRepository.save(venda);
+//	}
 	@Transactional
 	public Venda criarVenda(VendaDTO dto) {
-		Venda venda = new Venda();
-		venda.setDataHora(LocalDateTime.now());
+	    Venda venda = new Venda();
+	    venda.setDataHora(LocalDateTime.now());
 
-		List<ItemVenda> itens = new ArrayList<>();
-		double valorTotal = 0.0;
+	    List<ItemVenda> itens = new ArrayList<>();
+	    double valorTotal = 0.0;
 
-		for (ItemVendaDTO itemDTO : dto.getItens()) {
-			Produto produto = produtoRepository.findById(itemDTO.getProdutoId())
-					.orElseThrow(() -> new RuntimeException("Produto não encontrado: ID " + itemDTO.getProdutoId()));
+	    for (ItemVendaDTO itemDTO : dto.getItens()) {
+	        Produto produto = produtoRepository.findById(itemDTO.getProdutoId())
+	            .orElseThrow(() -> new RuntimeException("Produto não encontrado: ID " + itemDTO.getProdutoId()));
 
-			double precoUnitario = produto.getPreco();
-			int qtd = itemDTO.getQuantidade();
-			double subtotal = precoUnitario * qtd;
+	        int quantidadeVendida = itemDTO.getQuantidade();
 
-			ItemVenda item = new ItemVenda();
-			item.setProduto(produto);
-			item.setQuantidade(qtd);
-			item.setPrecoUnitario(precoUnitario);
-			item.setSubtotal(subtotal);
-			item.setVenda(venda);
+	        // Verificar se há estoque suficiente
+	        if (produto.getQuantidadeEstoque() < quantidadeVendida) {
+	            throw new RuntimeException("Estoque insuficiente para o produto: " + produto.getNome());
+	        }
 
-			itens.add(item);
-			valorTotal += subtotal;
-		}
+	        // Atualizar o estoque
+	        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidadeVendida);
+	        produtoRepository.save(produto); // necessário dependendo da configuração do JPA
 
-		venda.setItens(itens);
-		venda.setValorTotal(valorTotal);
+	        double precoUnitario = produto.getPreco();
+	        double subtotal = precoUnitario * quantidadeVendida;
 
-		return vendaRepository.save(venda);
+	        ItemVenda item = new ItemVenda();
+	        item.setProduto(produto);
+	        item.setQuantidade(quantidadeVendida);
+	        item.setPrecoUnitario(precoUnitario);
+	        item.setSubtotal(subtotal);
+	        item.setVenda(venda);
+
+	        itens.add(item);
+	        valorTotal += subtotal;
+	    }
+
+	    venda.setItens(itens);
+	    venda.setValorTotal(valorTotal);
+
+	    return vendaRepository.save(venda);
 	}
 
 	public List<Venda> listarTodasVendas() {

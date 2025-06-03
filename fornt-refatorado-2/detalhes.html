@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detalhes do Produto</title>
+  <style>
+    :root {
+      --cor-base: hsl(270, 60%, 85%);
+      --cor-mais-clara: hsl(270, 60%, 95%);
+      --cor-clara: hsl(270, 60%, 90%);
+      --cor-escura: hsl(270, 60%, 70%);
+      --cor-mais-escura: hsl(270, 60%, 50%);
+      --cor-secundaria: hsl(300, 60%, 85%);
+      --preto: rgb(41, 41, 41);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--cor-mais-clara);
+      padding: 2rem;
+      color: var(--preto);
+    }
+
+    .produto-detalhes {
+      background-color: var(--cor-clara);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .produto-detalhes h2 {
+      margin-top: 0;
+      color: var(--cor-mais-escura);
+      margin-bottom: 1.5rem;
+    }
+
+    .campo {
+      margin-bottom: 1rem;
+    }
+
+    .campo strong {
+      display: block;
+      color: var(--cor-mais-escura);
+      margin-bottom: 0.25rem;
+    }
+
+    .campo span {
+      display: block;
+      word-break: break-word;
+    }
+
+    .produto-status {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background-color: var(--cor-clara);
+      border-left: 4px solid var(--cor-escura);
+      border-radius: 8px;
+    }
+
+    .produto-status.ativo {
+      border-color: green;
+      color: green;
+    }
+
+    .produto-status.inativo {
+      border-color: red;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="produto-detalhes">
+    <h2>Detalhes do Produto</h2>
+
+    <div class="campo">
+      <strong>ID:</strong>
+      <span>1</span>
+    </div>
+
+    <div class="campo">
+      <strong>Nome:</strong>
+      <span>Teclado Mecânico Gamer</span>
+    </div>
+
+    <div class="campo">
+      <strong>Descrição:</strong>
+      <span>Teclado com iluminação RGB, switches mecânicos e estrutura metálica.Teclado com iluminação RGB, switches mecânicos e estrutura metálica.Teclado com iluminação RGB, switches mecânicos e estrutura metálica</span>
+    </div>
+
+    <div class="campo">
+      <strong>Preço:</strong>
+      <span>R$ 349,90</span>
+    </div>
+
+    <div class="campo">
+      <strong>Quantidade:</strong>
+      <span>12</span>
+    </div>
+
+    <div class="campo">
+      <strong>Categoria:</strong>
+      <span>Periféricos</span>
+    </div>
+
+    <div class="campo">
+      <strong>Data de Cadastro:</strong>
+      <span>02/06/2025 14:23</span>
+    </div>
+
+    <div class="produto-status ativo">Produto Ativo</div>
+    <!-- <div class="produto-status inativo">Produto Inativo</div> -->
+  </div>
+</body>
+</html>

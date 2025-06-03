@@ -27,11 +27,11 @@ function CriarProduto() {
             "Authorization": `Bearer ${token}`
           }
         });
-        
+
         if (!response.ok) {
           throw new Error("Erro ao carregar categorias");
         }
-        
+
         const data = await response.json();
         setCategorias(data);
         setLoading(false);
@@ -54,27 +54,27 @@ function CriarProduto() {
 
   const validateForm = () => {
     const errors = {};
-    
+
     if (!formData.nome.trim()) {
       errors.nome = "Nome é obrigatório";
     }
-    
+
     if (formData.preco === "" || isNaN(formData.preco)) {
       errors.preco = "Preço é obrigatório";
     } else if (Number(formData.preco) < 0) {
       errors.preco = "Preço não pode ser negativo";
     }
-    
+
     if (formData.quantidadeEstoque === "" || isNaN(formData.quantidadeEstoque)) {
       errors.quantidadeEstoque = "Quantidade em estoque é obrigatória";
     } else if (Number(formData.quantidadeEstoque) < 0) {
       errors.quantidadeEstoque = "Estoque não pode ser negativo";
     }
-    
+
     if (!formData.categoriaId) {
       errors.categoriaId = "Categoria é obrigatória";
     }
-    
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -222,8 +222,8 @@ function CriarProduto() {
           <button type="submit" className="btn-salvar">
             Criar Produto
           </button>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="btn-cancelar"
             onClick={() => navigate("/produtos")}
           >
