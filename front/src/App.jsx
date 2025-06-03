@@ -1,44 +1,64 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Tabela from "./components/comum/Tabela";
-import CategoriasCriar from "./components/categoria/CategoriaCriar";
-import CategoriasEditar from "./components/categoria/CategoriaEditar";
-import ProdutosCriar from "./components/produto/ProdutoCriar";
-import ProdutosEditar from "./components/produto/ProdutoEditar";
-import VendaVer from "./components/venda/VendaVer";
-import VendaCriar from "./components/venda/VendaCriar";
-import RegistroUsuario from "./components/auth/RegistroUsuario";
-import AppLayout from "./components/comum/AppLayout";
-import AuthLayout from "./components/comum/AuthLayout";
-import LoginUsuario from "./components/auth/Login";
-import ProtectedRoute from "./components/comum/ProtectedRoute"; // Importe o novo componente
+import TabelaProdutos from "./components/produto/TabelaProdutos";
+import CriarProduto from "./components/produto/CriarProduto";
+import AppLayout from "./components/commun/AppLayout";
+import AuthLayout from "./components/commun/AuthLayout";
+import EditarProduto from "./components/produto/EditarProduto";
+import ProtectedRout from "./components/commun/ProtectedRoute";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import DetalhesProduto from "./components/produto/DetalhesProduto";
+import TabelaCategorias from "./components/categoria/TabelaCategoria";
+import CriarCategoria from "./components/categoria/CriarCategoria";
+import EditarCategoria from "./components/categoria/EditarCategoria";
+import DetalhesCategoria from "./components/categoria/DetalhesCategoria";
+import Carrinho from "./components/venda/Carrinho";
+import TabelaVenda from "./components/venda/TabelaVenda";
+import TabelaProdutosVenda from "./components/venda/TabelaProdutosVenda";
+
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* ROTAS PROTEGIDAS - requerem autenticação */}
-        <Route element={<ProtectedRoute />}>
-          <Route element={<AppLayout />}>
-            <Route path="/categorias" element={<Tabela entidade="categorias" />} />
-            <Route path="/categorias/criar" element={<CategoriasCriar />} />
-            <Route path="/categorias/editar/:id" element={<CategoriasEditar />} />
-            <Route path="/vendas" element={<Tabela entidade="venda" />} />
-            <Route path="/venda/:id/itens" element={<VendaVer />} />
-            <Route path="/venda/criar" element={<VendaCriar />} />
-            <Route path="/produtos" element={<Tabela entidade="produtos" />} />
-            <Route path="/produtos/criar" element={<ProdutosCriar />} />
-            <Route path="/produtos/editar/:id" element={<ProdutosEditar />} />
-          </Route>
-        </Route>
+    <div className="App">
+      {/* <Header />
+      <Navbar /> */}
 
-        {/* ROTAS PÚBLICAS - não requerem autenticação */}
-        <Route element={<AuthLayout />}>
-          <Route path="/auth/register" element={<RegistroUsuario />} />
-          <Route path="/auth/login" element={<LoginUsuario />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<Login />} />
+          </Route>
+
+          <Route element={<ProtectedRout />}>
+            <Route element={<AppLayout />}>
+
+              <Route path="/TabelaCategorias" element={<TabelaCategorias />} />
+              <Route path="/TabelaProdutos" element={<TabelaProdutos />} />
+              <Route path="/Carrinho" element={<Carrinho />} />
+              <Route path="/TabelaVenda" element={<TabelaVenda />} />
+
+              <Route path="/CriarProduto" element={<CriarProduto />} />
+              <Route path="/EditarProduto/:id" element={<EditarProduto />} />
+              <Route path="/DetalhesProduto/:id" element={<DetalhesProduto />} />
+              <Route path="/CriarCategoria" element={<CriarCategoria />} />
+              <Route path="/EditarCategoria/:id" element={<EditarCategoria />} />
+              <Route path="/DetalhesCategoria/:id" element={<DetalhesCategoria />} />
+
+              <Route path="/DetalhesVenda/:id" element={<TabelaProdutosVenda />} />
+              
+            </Route>
+          </Route>
+          <Route path="*" element={<div>Página não encontrada</div>} />
+        </Routes>
+      </BrowserRouter>
+
+
+
+      
+    </div>
   );
 }
 

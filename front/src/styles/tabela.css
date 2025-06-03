@@ -1,0 +1,115 @@
+#tabela {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: var(--cor-base);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#tabela th,
+#tabela td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-clara);
+}
+
+#tabela th {
+  background-color: var(--cor-clara);
+  color: var(--cor-mais-escura);
+  text-align: center;
+}
+
+#tabela tr:hover {
+  background-color: var(--cor-clara);
+}
+#tabela thead tr th {
+  text-align: left;
+}
+#tabela thead tr th:last-child {
+  text-align: center;
+}
+#tabela tbody tr td:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-acao {
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: var(--cor-escura);
+}
+
+.btn-editar {
+  background-color: #FFD166;
+}
+.btn-ver {
+  background-color: #6E9EC7;
+}
+
+.btn-excluir {
+  background-color: #FF7D8A;
+}
+
+
+
+.tabela-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 1rem;
+}
+#tabelas-do-carrinho h2{
+  padding-bottom: 16px;
+}
+#tabelas-do-carrinho h2:last-of-type{
+  margin-top: 32px;
+}
+.topo-tabela {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.btn-criar {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-criar:hover {
+  background-color: #388e3c;
+}
+
+.paginacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.paginacao button {
+  padding: 0.4rem 1rem;
+  border: none;
+  background-color: #6666cc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.paginacao button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

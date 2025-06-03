@@ -1,5 +1,5 @@
 import Header from "./Header";
-import SideBar from "./SideBar";
+import Navbar from "./Navbar";
 
 import { Outlet } from "react-router-dom";
 
@@ -8,7 +8,7 @@ function AppLayout() {
     <>
       <Header />
       <div className="parte-baixa">
-        <SideBar />
+        <Navbar />
         <div className="conteudo">
           <Outlet />
         </div>

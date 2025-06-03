@@ -1,0 +1,33 @@
+.tabela-container h2 {
+    margin-top: 1rem;
+}
+
+.btn {
+    background-color: var(--cor-escura);
+    color: white;
+}
+
+.btn-ver {
+    background-color: #2196f3;
+    color: white;
+}
+
+.btn-excluir {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-criar {
+    background-color: #4caf50;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-criar:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
